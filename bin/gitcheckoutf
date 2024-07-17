@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "usage: gitcheckoutf branchname"
+    exit 1
+fi
+
+for subfolder in */ ; do
+  (
+    cd "$subfolder" || exit
+    if [ ! -d ".git" ]; then
+      exit
+    fi
+    echo "Checking out $subfolder to branch $1"
+    git checkout $1
+    )
+done
