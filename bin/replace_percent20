@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <file-or-directory>" >&2
+    exit 1
+fi
+
+target="$1"
+
+if [ ! -e "$target" ]; then
+    echo "Error: not a file or directory: $target" >&2
+    exit 1
+fi
+
+dir=$(dirname "$target")
+base=$(basename "$target")
+new_base="${base//%20/-}"
+
+if [ "$base" != "$new_base" ]; then
+    mv "$dir/$base" "$dir/$new_base"
+fi

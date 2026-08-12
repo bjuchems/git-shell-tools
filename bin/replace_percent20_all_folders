@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+script_dir=$(dirname "$0")
+
+for dir in */; do
+    [ -d "$dir" ] || continue
+    "$script_dir/replace_percent20" "${dir%/}"
+done
